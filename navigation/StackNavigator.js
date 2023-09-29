@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
+import LandingScreen from "../screens/LandingScreen";
 
 const StackNavigator = () => {
     const Stack = createNativeStackNavigator();
@@ -81,7 +82,13 @@ const StackNavigator = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator initialRouteName="Landing">
+
+            <Stack.Screen
+                    name="Landing"
+                    component={LandingScreen}
+                    options={{ headerShown: false }}
+                />
 
                 <Stack.Screen
                     name="Main"
