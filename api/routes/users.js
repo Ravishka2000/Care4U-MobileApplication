@@ -68,6 +68,4 @@ router.get('/isAdmin/:id', async (req, res) => {
     
 });
 
-
-
 export default router;

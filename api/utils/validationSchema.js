@@ -13,9 +13,9 @@ const signUpBodyValidation = (body) => {
       lastName: Joi.string().required().label("Last Name"),
       age: Joi.string().required().label("Age"),
       city: Joi.string().required().label("City"),
-      speciality: Joi.string().required().label("Speciality"),
-      servicesOffered: Joi.string().required().label("Services Offered"),
-      hourlyRate: Joi.string().required().label("Hourly Rate"),
+      speciality: Joi.string().optional().label("Speciality"),
+      servicesOffered: Joi.string().optional().label("Services Offered"),
+      hourlyRate: Joi.string().optional().label("Hourly Rate"),
       
     });
   

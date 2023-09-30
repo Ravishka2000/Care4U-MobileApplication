@@ -21,7 +21,6 @@ const caretakerSchema = new Schema({
     },
     hourlyRate:{
         type: Number,
-        required: true,
     },
 
 });  
