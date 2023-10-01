@@ -8,7 +8,7 @@ import previousCaretakerRoutes from "./routes/previousCaretaker.js";
 import cors from "cors";
 
 
-
+//
 const app = express();
 
 //allows us access environment variables like dotenv files
