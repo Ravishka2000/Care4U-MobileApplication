@@ -2,6 +2,10 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
+import refreshTokenRoutes from "./routes/refreshToken.js"
+import userRoutes from "./routes/users.js";
+import previousCaretakerRoutes from "./routes/previousCaretaker.js";
+import authRoutes from "./routes/auth.js";
 
 dotenv.config();
 
@@ -28,3 +32,8 @@ mongoose
 app.listen(PORT, () => {
     console.log("Server listening on port " + PORT);
 });
+
+app.use("/api", authRoutes);
+app.use("/api/refreshToken", refreshTokenRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/previous-caretaker", previousCaretakerRoutes);

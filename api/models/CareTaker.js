@@ -1,11 +1,13 @@
 import mongoose from "mongoose";
 
-const careTakerSchema = new mongoose.Schema({
-    user: {
+const Schema = mongoose.Schema;
+
+const caretakerSchema = new Schema({
+    user:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },
-    speciality: {
+    speciality:{
         type: String,
         enum: [
             "Pet",
@@ -13,19 +15,15 @@ const careTakerSchema = new mongoose.Schema({
             "Patient",
             "Disability Individual",
         ],
-        required: true,
     },
-    servicesOffered: [
-        {
-            type: String,
-        },
-    ],
-    hourlyRate: {
+    servicesOffered:{
+        type: String,
+    },
+    hourlyRate:{
         type: Number,
-        required: true,
     },
-});
 
-const CareTaker = mongoose.model("CareTaker", careTakerSchema);
+});  
 
-export default CareTaker;
+const Caretaker = mongoose.model("Caretaker", caretakerSchema);
+export default Caretaker;
