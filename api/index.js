@@ -17,6 +17,12 @@ app.use(cors());
 const MONGO_URL = process.env.MONGODB;
 const PORT = process.env.PORT || 6000;
 
+
+app.use("/api", authRoutes);
+app.use("/api/refreshToken", refreshTokenRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/previous-caretaker", previousCaretakerRoutes);
+
 mongoose
     .connect(MONGO_URL, {
         useNewUrlParser: true,
@@ -33,7 +39,4 @@ app.listen(PORT, () => {
     console.log("Server listening on port " + PORT);
 });
 
-app.use("/api", authRoutes);
-app.use("/api/refreshToken", refreshTokenRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/previous-caretaker", previousCaretakerRoutes);
+

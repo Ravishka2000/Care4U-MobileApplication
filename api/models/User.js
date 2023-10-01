@@ -41,9 +41,8 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    caretaker:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Caretaker",
+    isCaretaker:{
+        type: Boolean
     },
 
 });  
