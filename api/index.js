@@ -6,6 +6,7 @@ import refreshTokenRoutes from "./routes/refreshToken.js"
 import userRoutes from "./routes/users.js";
 import previousCaretakerRoutes from "./routes/previousCaretaker.js";
 import authRoutes from "./routes/auth.js";
+import TaskRoutes from "./routes/Tasks.js";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use("/api", authRoutes);
 app.use("/api/refreshToken", refreshTokenRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/previous-caretaker", previousCaretakerRoutes);
+app.use("/api/tasks", TaskRoutes)
 
 mongoose
     .connect(MONGO_URL, {

@@ -22,23 +22,6 @@ const caretakerSchema = new Schema({
     hourlyRate:{
         type: Number,
     },
-    tasks: [
-        {
-            title: String,
-            description: String,
-            subtasks: [
-                {
-                    title: String,
-                    from: Date,
-                    to: Date,
-                    period: String,
-                    notes: String,
-                    status: Boolean,
-                },
-            ],
-        },
-    ],
-
 });  
 
 const Caretaker = mongoose.model("Caretaker", caretakerSchema);
