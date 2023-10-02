@@ -22,6 +22,22 @@ const bookingSchema = new mongoose.Schema({
         enum: ["Pending", "Confirmed", "Cancelled"],
         default: "Pending",
     },
+    tasks: [
+        {
+            title: String,
+            description: String,
+            subtasks: [
+                {
+                    title: String,
+                    from: Date,
+                    to: Date,
+                    period: String,
+                    notes: String,
+                    status: Boolean,
+                },
+            ],
+        },
+    ],
 });
 
 const Booking = mongoose.model("Booking", bookingSchema);
