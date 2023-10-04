@@ -35,19 +35,21 @@ router.post("/signUp", async (req, res) => {
       });
   
       // If the "caretaker" field is provided and not empty, create a Caretaker document
-      if (caretaker  !== null) {
-        // Assuming you have a valid reference to the Caretaker model
-        const newCaretaker = new Caretaker({
-          speciality: caretaker, // Adjust this based on your requirements
-          // Other caretaker details
-        });
-  
-        await newCaretaker.save();
-  
-        // Associate the user with the caretaker
-        newUser.caretaker = newCaretaker._id;
-      }
-  
+      
+        if (caretaker  != null) {
+            // Assuming you have a valid reference to the Caretaker model
+            const newCaretaker = new Caretaker({
+              speciality: caretaker.speciality, // Adjust this based on your requirements
+              servicesOffered: caretaker.servicesOffered,
+              hourlyRate: caretaker.hourlyRate,
+            });
+      
+            await newCaretaker.save();
+      
+            // Associate the user with the caretaker
+            newUser.caretaker = newCaretaker._id;
+          }
+      
       await newUser.save();
   
       return res.status(201).json({ error: false, message: "Account created successfully" });

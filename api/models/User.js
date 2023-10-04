@@ -44,7 +44,7 @@ const userSchema = new Schema({
     caretaker:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Caretaker",
-    },
+    }
 
 });  
 
