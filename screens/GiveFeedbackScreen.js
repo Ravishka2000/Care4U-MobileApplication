@@ -1,12 +1,19 @@
+import { useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Button, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
+
+
 const API_BASE = "http://localhost:6060";
 
 const GiveFeedbackScreen = () => {
-    const [comment, setComment] = useState("");
 
+    const [feedbacksData, setFeedbacksData] = useState([])
+    
+
+    const [comment, setComment] = useState("");
+    
     const addFeedback = async () => {
 
         const feedback = {
@@ -21,7 +28,6 @@ const GiveFeedbackScreen = () => {
             'My-Custom-Header': 'foobar'
         };
         axios.post(API_BASE + '/api/feedbacks/add-feedback', feedback, { headers });
-
     }
 
     const styles = StyleSheet.create({

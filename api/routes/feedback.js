@@ -3,8 +3,7 @@ import Feedback from "../models/Feedback.js";
 
 const router = Router();
 
-
-router.get('/feedback', async (req, res) => {
+router.get('/feedbacks', async (req, res) => {
     const feedbacks = await Feedback.find();
     res.json(feedbacks);
 })

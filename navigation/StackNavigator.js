@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -10,10 +10,14 @@ import LoginScreen from "../screens/LoginScreen";
 import CaretakerRegisterScreen from "../screens/CaretakerRegisterScreen";
 import UserRegisterScreen from "../screens/UserRegisterScreen";
 import GiveFeedbackScreen from "../screens/GiveFeedbackScreen";
+import FeedbackScreen from "../screens/FeedbackScreen";
+import axios from "axios";
+
 
 const StackNavigator = () => {
     const Stack = createNativeStackNavigator();
     const Tab = createBottomTabNavigator();
+
 
     function BottomTabs() {
         return (
@@ -107,9 +111,36 @@ const StackNavigator = () => {
 
                 <Tab.Screen
                     name="Give Feedback"
-                    component={GiveFeedbackScreen}
+                    component={()=>(
+                        <GiveFeedbackScreen/>
+                    )}
                     options={{
                         tabBarLabel: "Give a Feedback",
+                        tabBarLabelStyle: { color: "#435334" },
+                        tabBarIcon: ({ focused }) =>
+                            focused ? (
+                                <Ionicons
+                                    name="ios-person"
+                                    size={24}
+                                    color="#435334"
+                                />
+                            ) : (
+                                <Ionicons
+                                    name="ios-person-outline"
+                                    size={24}
+                                    color="#435334"
+                                />
+                            ),
+                    }}
+                />
+
+                <Tab.Screen
+                    name="Feedback"
+                    component={()=>(
+                        <FeedbackScreen/>
+                    )}
+                    options={{
+                        tabBarLabel: "Feedback",
                         tabBarLabelStyle: { color: "#435334" },
                         tabBarIcon: ({ focused }) =>
                             focused ? (
