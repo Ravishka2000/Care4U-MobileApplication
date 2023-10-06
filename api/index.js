@@ -6,6 +6,7 @@ import refreshTokenRoutes from "./routes/refreshToken.js"
 import userRoutes from "./routes/users.js";
 import previousCaretakerRoutes from "./routes/previousCaretaker.js";
 import authRoutes from "./routes/auth.js";
+import feedbackRoutes from "./routes/feedback.js";
 
 dotenv.config();
 
@@ -37,3 +38,4 @@ app.use("/api", authRoutes);
 app.use("/api/refreshToken", refreshTokenRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/previous-caretaker", previousCaretakerRoutes);
+app.use("/api/feedbacks", feedbackRoutes);

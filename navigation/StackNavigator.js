@@ -6,6 +6,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import LandingScreen from "../screens/LandingScreen";
+import LoginScreen from "../screens/LoginScreen";
+import CaretakerRegisterScreen from "../screens/CaretakerRegisterScreen";
+import UserRegisterScreen from "../screens/UserRegisterScreen";
+import GiveFeedbackScreen from "../screens/GiveFeedbackScreen";
 
 const StackNavigator = () => {
     const Stack = createNativeStackNavigator();
@@ -76,6 +80,53 @@ const StackNavigator = () => {
                             ),
                     }}
                 />
+
+
+                <Tab.Screen
+                    name="Login"
+                    component={LoginScreen}
+                    options={{
+                        tabBarLabel: "Login",
+                        tabBarLabelStyle: { color: "#435334" },
+                        tabBarIcon: ({ focused }) =>
+                            focused ? (
+                                <Ionicons
+                                    name="ios-person"
+                                    size={24}
+                                    color="#435334"
+                                />
+                            ) : (
+                                <Ionicons
+                                    name="ios-person-outline"
+                                    size={24}
+                                    color="#435334"
+                                />
+                            ),
+                    }}
+                />
+
+                <Tab.Screen
+                    name="Give Feedback"
+                    component={GiveFeedbackScreen}
+                    options={{
+                        tabBarLabel: "Give a Feedback",
+                        tabBarLabelStyle: { color: "#435334" },
+                        tabBarIcon: ({ focused }) =>
+                            focused ? (
+                                <Ionicons
+                                    name="ios-person"
+                                    size={24}
+                                    color="#435334"
+                                />
+                            ) : (
+                                <Ionicons
+                                    name="ios-person-outline"
+                                    size={24}
+                                    color="#435334"
+                                />
+                            ),
+                    }}
+                />
             </Tab.Navigator>
         );
     }
@@ -84,7 +135,7 @@ const StackNavigator = () => {
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Landing">
 
-            <Stack.Screen
+                <Stack.Screen
                     name="Landing"
                     component={LandingScreen}
                     options={{ headerShown: false }}
@@ -95,6 +146,7 @@ const StackNavigator = () => {
                     component={BottomTabs}
                     options={{ headerShown: false }}
                 />
+
 
             </Stack.Navigator>
         </NavigationContainer>

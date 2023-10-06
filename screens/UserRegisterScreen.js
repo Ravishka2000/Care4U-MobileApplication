@@ -4,7 +4,7 @@ import { Button, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } f
 
 const API_BASE = "http://localhost:6060";
 
-const RegisterScreen = () => {
+const UserRegisterScreen = () => {
     const [userName, setUserName] = useState("");
     const [email, setEmail] = useState("");
 
@@ -14,19 +14,10 @@ const RegisterScreen = () => {
     const [lastName, setLastName] = useState("");
     const [age, setAge] = useState("");
     const [city, setCity] = useState("");
-    const [servicesOffered, setServicesOffered] = useState("");
-    const [hourlyRate, setHourlyRate] = useState("");
-    const [speciality, setSpeciality] = useState("");
 
 
     const register = async () => {
 
-        const caretaker = {
-            servicesOffered: servicesOffered,
-            hourlyRate: hourlyRate,
-            speciality: speciality
-
-        }
         const user = {
             userName: userName,
             email: email,
@@ -34,8 +25,7 @@ const RegisterScreen = () => {
             firstName: firstName,
             lastName: lastName,
             age: age,
-            city: city,
-            caretaker: caretaker
+            city: city
         };
     const headers = {
         'Authorization': 'Bearer my-token',
@@ -119,27 +109,6 @@ return (
             placeholder="Enter Your City"
         />
 
-        <TextInput
-            style={styles.input}
-            onChangeText={setServicesOffered}
-            value={servicesOffered}
-            placeholder="Enter Your Services Offered"
-        />
-
-        <TextInput
-            style={styles.input}
-            onChangeText={setHourlyRate}
-            value={hourlyRate}
-            placeholder="Enter Your Hourly Rate"
-        />
-
-        <TextInput
-            style={styles.input}
-            onChangeText={setSpeciality}
-            value={speciality}
-            placeholder="Enter Your Speciality"
-        />
-
         <Button
             onPress={register}
             title="Register"
@@ -150,4 +119,4 @@ return (
 )
 }
 
-export default RegisterScreen
+export default UserRegisterScreen

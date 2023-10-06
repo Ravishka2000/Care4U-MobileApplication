@@ -40,6 +40,7 @@ const LoginScreen = () => {
         }).then(async (res) => {
             if (res.ok) {
                 const data = await res.json(); // Parse the response JSON if res.ok
+                console.error("Login Success");
                 console.log(data.refreshToken);
                 storeRefreshToken(data.refreshToken);
                 storeIsLogged(true);

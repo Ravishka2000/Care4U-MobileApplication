@@ -25,7 +25,7 @@ const generateTokens = async(user)=>{
         const userToken = await UserToken.findOne({userId: user._id});
         
         //if exists delete the document
-        if(userToken) await userToken.remove();
+        if(userToken) await userToken.deleteOne();
 
         //creates a new user token with the user id and refresh token and save in the database
         await new UserToken({userId:user._id, token:refreshToken}).save();
