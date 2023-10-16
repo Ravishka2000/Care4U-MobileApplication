@@ -8,6 +8,49 @@ router.get('/feedbacks', async (req, res) => {
     res.json(feedbacks);
 })
 
+router.put('/feedback', async (req, res) => {
+    const feedbackId = req.body.id;
+    const updatedFeedback = req.body.feedback;
+
+    if (!feedbackId || !updatedFeedback) {
+        return res.status(400).json({ message: 'Missing feedback ID or updated content' });
+    }
+
+    try {
+        const result = await Feedback.findByIdAndUpdate(feedbackId, { feedback: updatedFeedback });
+        if (result) {
+            console.log("Updated Feedback: ", result);
+            res.status(200).json({ message: 'Feedback updated successfully' });
+        } else {
+            res.status(404).json({ message: 'Feedback not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Failed to update feedback' });
+    }
+});
+
+router.delete('/feedback', async (req, res) => {
+    const feedbackId = req.body.id;
+
+    try {
+        // Find the feedback document by its ID and remove it
+        const deletedFeedback = await Feedback.findByIdAndDelete(feedbackId);
+
+        if (deletedFeedback) {
+            res.status(200).json({ message: 'Feedback deleted successfully' });
+        } else {
+            res.status(404).json({ message: 'Feedback not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Failed to delete feedback' });
+    }
+});
+
+
+
+
 router.post("/add-feedback", async (req, res) => {
 
     const user = req.body.user;

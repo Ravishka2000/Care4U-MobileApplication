@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Button, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const API_BASE = "http://localhost:6060";
 
 const UserRegisterScreen = () => {
+    const navigation = useNavigation();
     const [userName, setUserName] = useState("");
     const [email, setEmail] = useState("");
 
@@ -16,7 +18,7 @@ const UserRegisterScreen = () => {
     const [city, setCity] = useState("");
 
 
-    const register = async () => {
+    const register = () => {
 
         const user = {
             userName: userName,
@@ -32,6 +34,7 @@ const UserRegisterScreen = () => {
         'My-Custom-Header': 'foobar'
     };
     axios.post(API_BASE + '/api/signUp', user, { headers });
+    navigation.replace("Profile");
 
 }
 

@@ -5,7 +5,7 @@ import UserToken from "../models/UserToken.js";
 const generateTokens = async(user)=>{
     try{
         //can add more fields if you want
-        const payload = {_id:user._id, roles: user.roles};
+        const payload = {_id:user._id, userId: user.userName, roles: user.roles};
 
         //creates access token with jwt
         const accessToken = jwt.sign(

@@ -12,6 +12,8 @@ import UserRegisterScreen from "../screens/UserRegisterScreen";
 import GiveFeedbackScreen from "../screens/GiveFeedbackScreen";
 import FeedbackScreen from "../screens/FeedbackScreen";
 import axios from "axios";
+import ProfileScreen from "../screens/ProfileScreen";
+import RegisterScreen from "../screens/RegisterScreen";
 
 
 const StackNavigator = () => {
@@ -110,9 +112,34 @@ const StackNavigator = () => {
                 />
 
                 <Tab.Screen
+                    name="Register"
+                    component={() => (
+                        <RegisterScreen />
+                    )}
+                    options={{
+                        tabBarLabel: "Register",
+                        tabBarLabelStyle: { color: "#435334" },
+                        tabBarIcon: ({ focused }) =>
+                            focused ? (
+                                <Ionicons
+                                    name="ios-person"
+                                    size={24}
+                                    color="#435334"
+                                />
+                            ) : (
+                                <Ionicons
+                                    name="ios-person-outline"
+                                    size={24}
+                                    color="#435334"
+                                />
+                            ),
+                    }}
+                />
+
+                <Tab.Screen
                     name="Give Feedback"
-                    component={()=>(
-                        <GiveFeedbackScreen/>
+                    component={() => (
+                        <GiveFeedbackScreen />
                     )}
                     options={{
                         tabBarLabel: "Give a Feedback",
@@ -136,8 +163,8 @@ const StackNavigator = () => {
 
                 <Tab.Screen
                     name="Feedback"
-                    component={()=>(
-                        <FeedbackScreen/>
+                    component={() => (
+                        <FeedbackScreen />
                     )}
                     options={{
                         tabBarLabel: "Feedback",
@@ -178,6 +205,23 @@ const StackNavigator = () => {
                     options={{ headerShown: false }}
                 />
 
+                <Stack.Screen
+                    name="Profile"
+                    component={ProfileScreen}
+                    options={{ headerShown: false }}
+                />
+
+                <Stack.Screen
+                    name="UserRegistration"
+                    component={UserRegisterScreen}
+                    options={{ headerShown: false }}
+                />
+
+                <Stack.Screen
+                    name="CaretakerRegistration"
+                    component={CaretakerRegisterScreen}
+                    options={{ headerShown: false }}
+                />
 
             </Stack.Navigator>
         </NavigationContainer>

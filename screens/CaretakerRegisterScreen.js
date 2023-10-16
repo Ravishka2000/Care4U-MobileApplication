@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
 return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
 
-        <Text>Register & join with the community</Text>
+        <Text>Caretaker Registration</Text>
 
         <TextInput
             style={styles.input}

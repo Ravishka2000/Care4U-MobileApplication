@@ -1,31 +1,14 @@
 import { Button, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 
-const API_BASE = "http://localhost:6060"
+const API_BASE = "http://192.168.163.121:6060"
 const LoginScreen = () => {
-
+    const navigation = useNavigation();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
-    async function storeRefreshToken(token) {
-        try {
-            await AsyncStorage.setItem('rfkey', token);
-            console.log('Refresh token stored successfully');
-        } catch (error) {
-            console.error('Error storing refresh token:', error);
-        }
-    }
-
-    async function storeIsLogged(status) {
-        try {
-            await AsyncStorage.setItem('isLogged', status);
-            console.log('isLogged stored successfully');
-        } catch (error) {
-            console.error('Error storing isLogged:', error);
-        }
-    }
 
     const checkLogin = async () => {
         await fetch(API_BASE + "/api/login", {
@@ -42,10 +25,8 @@ const LoginScreen = () => {
                 const data = await res.json(); // Parse the response JSON if res.ok
                 console.error("Login Success");
                 console.log(data.refreshToken);
-                storeRefreshToken(data.refreshToken);
-                storeIsLogged(true);
-                await setUsername();
-                window.location.reload(false);
+                AsyncStorage.setItem("authToken", data.refreshToken);
+                navigation.replace("Profile");
             } else {
                 // Handle the case when the response is not OK, e.g., show an error message.
                 console.error("Login failed");
