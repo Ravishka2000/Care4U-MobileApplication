@@ -69,30 +69,55 @@ const ViewCaretakerScreen = ({ route }) => {
             .post("https://care4u.onrender.com/api/booking", bookingData)
             .then((response) => {
                 setIsModalVisible(false);
-                Alert.alert("Booking Successful", "Your booking has been confirmed!");
+                Alert.alert(
+                    "Booking Successful",
+                    "Your booking has been confirmed!"
+                );
             })
             .catch((error) => {
                 console.error("Failed to create a booking:", error);
-                Alert.alert("Booking Failed", "An error occurred while creating the booking.");
+                Alert.alert(
+                    "Booking Failed",
+                    "An error occurred while creating the booking."
+                );
             });
     };
 
     return (
         <SafeAreaView style={styles.container}>
             {isLoading ? (
-                <ActivityIndicator size="large" color="#2E86DE" style={styles.loadingIndicator} />
+                <ActivityIndicator
+                    size="large"
+                    color="#2E86DE"
+                    style={styles.loadingIndicator}
+                />
             ) : (
                 <ScrollView>
-                    <Image source={{ uri: caretakerData.image }} style={styles.caretakerImage} />
+                    <Image
+                        source={{ uri: caretakerData.image }}
+                        style={styles.caretakerImage}
+                    />
                     <View style={styles.caretakerDetails}>
                         <Text style={styles.caretakerName}>
-                            {caretakerData.user.firstName} {caretakerData.user.lastName}
+                            {caretakerData.user.firstName}{" "}
+                            {caretakerData.user.lastName}
                         </Text>
-                        <Text style={styles.caretakerSpeciality}>Speciality: {caretakerData.speciality}</Text>
-                        <Text style={styles.caretakerServices}>Services Offered: {caretakerData.servicesOffered}</Text>
-                        <Text style={styles.caretakerRate}>Hourly Rate: ${caretakerData.hourlyRate}</Text>
-                        <Text style={styles.caretakerBio}>{caretakerData.bio}</Text>
-                        <TouchableOpacity onPress={handleBooking} style={styles.bookButton}>
+                        <Text style={styles.caretakerSpeciality}>
+                            Speciality: {caretakerData.speciality}
+                        </Text>
+                        <Text style={styles.caretakerServices}>
+                            Services Offered: {caretakerData.servicesOffered}
+                        </Text>
+                        <Text style={styles.caretakerRate}>
+                            Hourly Rate: ${caretakerData.hourlyRate}
+                        </Text>
+                        <Text style={styles.caretakerBio}>
+                            {caretakerData.bio}
+                        </Text>
+                        <TouchableOpacity
+                            onPress={handleBooking}
+                            style={styles.bookButton}
+                        >
                             <Text style={styles.bookButtonText}>Book</Text>
                         </TouchableOpacity>
                     </View>
@@ -113,7 +138,10 @@ const ViewCaretakerScreen = ({ route }) => {
                         value={endDate}
                         onChangeText={(text) => setEndDate(text)}
                     />
-                    <Button title="Confirm Booking" onPress={handleConfirmBooking} />
+                    <Button
+                        title="Confirm Booking"
+                        onPress={handleConfirmBooking}
+                    />
                 </View>
             </Modal>
         </SafeAreaView>

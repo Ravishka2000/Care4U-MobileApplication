@@ -11,6 +11,9 @@ import RegisterScreen from "../screens/RegisterScreen";
 import CareTakerHomeScreen from "../screens/CareTakerHomeScreen";
 import ViewCaretakerScreen from "../screens/ViewCaretakerScreen";
 import MyBookingsScreen from "../screens/MyBookingsScreen";
+import TaskScreen from "../screens/TaskScreen";
+import UserProfileScreen from "../screens/UserProfileScreen";
+import CareTakerTaskScreen from "../screens/CareTakerTaskScreen";
 
 const StackNavigator = () => {
     const Stack = createNativeStackNavigator();
@@ -66,7 +69,7 @@ const StackNavigator = () => {
                 />
                 <Tab.Screen
                     name="Profile"
-                    component={HomeScreen}
+                    component={UserProfileScreen}
                     options={{
                         tabBarLabel: "Profile",
                         tabBarLabelStyle: { color: "#435334" },
@@ -117,7 +120,7 @@ const StackNavigator = () => {
                 />
                 <Tab.Screen
                     name="Tasks"
-                    component={HomeScreen}
+                    component={CareTakerTaskScreen}
                     options={{
                         tabBarLabel: "Tasks",
                         tabBarLabelStyle: { color: "#435334" },
@@ -139,7 +142,7 @@ const StackNavigator = () => {
                 />
                 <Tab.Screen
                     name="Profile"
-                    component={HomeScreen}
+                    component={UserProfileScreen}
                     options={{
                         tabBarLabel: "Profile",
                         tabBarLabelStyle: { color: "#435334" },
@@ -199,7 +202,13 @@ const StackNavigator = () => {
                 <Stack.Screen
                     name="ViewCaretaker"
                     component={ViewCaretakerScreen}
-                    options={{ headerShown: true, title: 'Caretaker' }}
+                    options={{ headerShown: true, title: "Caretaker" }}
+                />
+
+                <Stack.Screen
+                    name="UserTask"
+                    component={TaskScreen}
+                    options={{ headerShown: true, title: "Tasks" }}
                 />
             </Stack.Navigator>
         </NavigationContainer>

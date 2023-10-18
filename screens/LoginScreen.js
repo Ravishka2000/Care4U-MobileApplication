@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
     Text,
     TextInput,
-    Button,
     StyleSheet,
     SafeAreaView,
     Pressable,
@@ -21,7 +20,7 @@ const LoginScreen = () => {
             try {
                 const token = await AsyncStorage.getItem("authToken");
                 if (token) {
-                    navigation.replace("Main");
+                    navigation.replace("CareTakerMain");
                 }
             } catch (error) {
                 console.log("Error: " + error);
@@ -43,13 +42,12 @@ const LoginScreen = () => {
             if (response.status === 200) {
                 const token = response.data.token;
                 AsyncStorage.setItem("authToken", token);
-                if (response.data.isCaretaker){
+                if (response.data.isCaretaker) {
                     navigation.navigate("CareTakerMain");
                 } else {
                     navigation.navigate("Main");
                 }
             }
-            
         } catch (error) {
             // Handle login error, e.g., show an error message to the user
             console.error("Login failed", error);

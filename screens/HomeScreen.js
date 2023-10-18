@@ -7,14 +7,15 @@ import {
     Text,
     Image,
     Pressable,
+    ActivityIndicator,
 } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
-
     const [caretakers, setCaretakers] = useState([]);
     const navigation = useNavigation();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         // Fetch caretaker data from the API endpoint
@@ -22,6 +23,7 @@ const HomeScreen = () => {
             .get("https://care4u.onrender.com/api/caretakers")
             .then((response) => {
                 setCaretakers(response.data);
+                setIsLoading(false);
             })
             .catch((error) => {
                 console.error("Failed to fetch caretaker data:", error);
@@ -34,32 +36,40 @@ const HomeScreen = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView>
-                {caretakers.map((caretaker, index) => (
-                    <Pressable
-                        key={index}
-                        style={styles.caretakerCard}
-                        onPress={() => handleCaretakerPress(caretaker._id)}
-                    >
-                        <Image
-                            source={{ uri: caretaker.image }}
-                            style={styles.caretakerImage}
-                        />
-                        <View style={styles.caretakerDetails}>
-                            <Text style={styles.caretakerName}>
-                                {caretaker.user.firstName}{" "}
-                                {caretaker.user.lastName}
-                            </Text>
-                            <Text style={styles.caretakerSpeciality}>
-                                Speciality: {caretaker.speciality}
-                            </Text>
-                            <Text style={styles.caretakerRate}>
-                                Hourly Rate: ${caretaker.hourlyRate}
-                            </Text>
-                        </View>
-                    </Pressable>
-                ))}
-            </ScrollView>
+            {isLoading ? (
+                <ActivityIndicator
+                    size="large"
+                    color="#2E86DE"
+                    style={styles.loadingIndicator}
+                />
+            ) : (
+                <ScrollView>
+                    {caretakers.map((caretaker, index) => (
+                        <Pressable
+                            key={index}
+                            style={styles.caretakerCard}
+                            onPress={() => handleCaretakerPress(caretaker._id)}
+                        >
+                            <Image
+                                source={{ uri: caretaker.image }}
+                                style={styles.caretakerImage}
+                            />
+                            <View style={styles.caretakerDetails}>
+                                <Text style={styles.caretakerName}>
+                                    {caretaker.user.firstName}{" "}
+                                    {caretaker.user.lastName}
+                                </Text>
+                                <Text style={styles.caretakerSpeciality}>
+                                    Speciality: {caretaker.speciality}
+                                </Text>
+                                <Text style={styles.caretakerRate}>
+                                    Hourly Rate: ${caretaker.hourlyRate}
+                                </Text>
+                            </View>
+                        </Pressable>
+                    ))}
+                </ScrollView>
+            )}
         </SafeAreaView>
     );
 };
@@ -97,7 +107,7 @@ const styles = StyleSheet.create({
     caretakerSpeciality: {
         fontSize: 16,
         color: "#555",
-        marginTop: 10
+        marginTop: 10,
     },
     caretakerServices: {
         fontSize: 16,
@@ -106,6 +116,11 @@ const styles = StyleSheet.create({
     caretakerRate: {
         fontSize: 16,
         color: "#555",
+    },
+    loadingIndicator: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
     },
 });
 
