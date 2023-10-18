@@ -6,6 +6,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import LandingScreen from "../screens/LandingScreen";
+import LoginScreen from "../screens/LoginScreen";
+import RegisterScreen from "../screens/RegisterScreen";
+import CareTakerHomeScreen from "../screens/CareTakerHomeScreen";
+import ViewCaretakerScreen from "../screens/ViewCaretakerScreen";
+import MyBookingsScreen from "../screens/MyBookingsScreen";
 
 const StackNavigator = () => {
     const Stack = createNativeStackNavigator();
@@ -22,7 +27,11 @@ const StackNavigator = () => {
                         tabBarLabelStyle: { color: "#435334" },
                         tabBarIcon: ({ focused }) =>
                             focused ? (
-                                <Ionicons name="ios-home" size={24} color="#435334" />
+                                <Ionicons
+                                    name="ios-home"
+                                    size={24}
+                                    color="#435334"
+                                />
                             ) : (
                                 <Ionicons
                                     name="ios-home-outline"
@@ -34,9 +43,83 @@ const StackNavigator = () => {
                 />
                 <Tab.Screen
                     name="Bookings"
-                    component={HomeScreen}
+                    component={MyBookingsScreen}
                     options={{
                         tabBarLabel: "Bookings",
+                        title: "My Bookings",
+                        tabBarLabelStyle: { color: "#435334" },
+                        tabBarIcon: ({ focused }) =>
+                            focused ? (
+                                <Ionicons
+                                    name="ios-calendar"
+                                    size={24}
+                                    color="#435334"
+                                />
+                            ) : (
+                                <Ionicons
+                                    name="ios-calendar-outline"
+                                    size={24}
+                                    color="#435334"
+                                />
+                            ),
+                    }}
+                />
+                <Tab.Screen
+                    name="Profile"
+                    component={HomeScreen}
+                    options={{
+                        tabBarLabel: "Profile",
+                        tabBarLabelStyle: { color: "#435334" },
+                        tabBarIcon: ({ focused }) =>
+                            focused ? (
+                                <Ionicons
+                                    name="ios-person"
+                                    size={24}
+                                    color="#435334"
+                                />
+                            ) : (
+                                <Ionicons
+                                    name="ios-person-outline"
+                                    size={24}
+                                    color="#435334"
+                                />
+                            ),
+                    }}
+                />
+            </Tab.Navigator>
+        );
+    }
+
+    function CareTakerBottomTabs() {
+        return (
+            <Tab.Navigator>
+                <Tab.Screen
+                    name="Dashboard"
+                    component={CareTakerHomeScreen}
+                    options={{
+                        tabBarLabel: "Home",
+                        tabBarLabelStyle: { color: "#435334" },
+                        tabBarIcon: ({ focused }) =>
+                            focused ? (
+                                <Ionicons
+                                    name="ios-home"
+                                    size={24}
+                                    color="#435334"
+                                />
+                            ) : (
+                                <Ionicons
+                                    name="ios-home-outline"
+                                    size={24}
+                                    color="#435334"
+                                />
+                            ),
+                    }}
+                />
+                <Tab.Screen
+                    name="Tasks"
+                    component={HomeScreen}
+                    options={{
+                        tabBarLabel: "Tasks",
                         tabBarLabelStyle: { color: "#435334" },
                         tabBarIcon: ({ focused }) =>
                             focused ? (
@@ -83,8 +166,7 @@ const StackNavigator = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Landing">
-
-            <Stack.Screen
+                <Stack.Screen
                     name="Landing"
                     component={LandingScreen}
                     options={{ headerShown: false }}
@@ -96,6 +178,29 @@ const StackNavigator = () => {
                     options={{ headerShown: false }}
                 />
 
+                <Stack.Screen
+                    name="CareTakerMain"
+                    component={CareTakerBottomTabs}
+                    options={{ headerShown: false }}
+                />
+
+                <Stack.Screen
+                    name="Login"
+                    component={LoginScreen}
+                    options={{ headerShown: false }}
+                />
+
+                <Stack.Screen
+                    name="Register"
+                    component={RegisterScreen}
+                    options={{ headerShown: false }}
+                />
+
+                <Stack.Screen
+                    name="ViewCaretaker"
+                    component={ViewCaretakerScreen}
+                    options={{ headerShown: true, title: 'Caretaker' }}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );

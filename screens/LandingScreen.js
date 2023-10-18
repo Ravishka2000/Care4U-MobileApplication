@@ -8,7 +8,7 @@ const LandingScreen = () => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            navigation.navigate("Main");
+            navigation.navigate("Login");
         }, 2000);
 
         return () => clearTimeout(timer);
