@@ -28,6 +28,7 @@ const StackNavigator = () => {
                     options={{
                         tabBarLabel: "Home",
                         tabBarLabelStyle: { color: "#435334" },
+                        headerShown: false,
                         tabBarIcon: ({ focused }) =>
                             focused ? (
                                 <Ionicons
@@ -49,7 +50,7 @@ const StackNavigator = () => {
                     component={MyBookingsScreen}
                     options={{
                         tabBarLabel: "Bookings",
-                        title: "My Bookings",
+                        headerShown: false,
                         tabBarLabelStyle: { color: "#435334" },
                         tabBarIcon: ({ focused }) =>
                             focused ? (
@@ -72,6 +73,7 @@ const StackNavigator = () => {
                     component={UserProfileScreen}
                     options={{
                         tabBarLabel: "Profile",
+                        headerShown: false,
                         tabBarLabelStyle: { color: "#435334" },
                         tabBarIcon: ({ focused }) =>
                             focused ? (
@@ -168,7 +170,14 @@ const StackNavigator = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Landing">
+            <Stack.Navigator
+                initialRouteName="Landing"
+                screenOptions={{
+                    contentStyle: {
+                        backgroundColor: "#ffffff",
+                    },
+                }}
+            >
                 <Stack.Screen
                     name="Landing"
                     component={LandingScreen}

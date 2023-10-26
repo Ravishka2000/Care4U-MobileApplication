@@ -9,23 +9,56 @@ import {
     ScrollView,
     TouchableOpacity,
     Modal,
-    TextInput,
-    Button,
-    Alert,
+    Pressable,
 } from "react-native";
 import axios from "axios";
 import { UserType } from "../UserContext";
 import jwt_decode from "jwt-decode";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const ViewCaretakerScreen = ({ route }) => {
     const { caretakerId } = route.params;
     const [caretakerData, setCaretakerData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [startDate, setStartDate] = useState("");
-    const [endDate, setEndDate] = useState("");
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
     const { userId, setUserId } = useContext(UserType);
+    const [startMode, setStartMode] = useState("date");
+    const [endMode, setEndMode] = useState("date");
+    const [startShow, setStartShow] = useState(false);
+    const [endShow, setEndShow] = useState(false);
+
+    const onStartDateChange = (event, selectedDate) => {
+        const currentDate = selectedDate;
+        setStartShow(false);
+        setStartDate(currentDate);
+    };
+
+    const onEndDateChange = (event, selectedDate) => {
+        const currentDate = selectedDate;
+        setEndShow(false);
+        setEndDate(currentDate);
+    };
+
+    const showStartDateMode = (currentMode) => {
+        setStartShow(true);
+        setStartMode(currentMode);
+    };
+
+    const showEndDateMode = (currentMode) => {
+        setEndShow(true);
+        setEndMode(currentMode);
+    };
+
+    const showStartDatepicker = () => {
+        showStartDateMode("date");
+    };
+
+    const showEndDatepicker = () => {
+        showEndDateMode("date");
+    };
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -39,7 +72,6 @@ const ViewCaretakerScreen = ({ route }) => {
     }, []);
 
     useEffect(() => {
-        // Fetch caretaker data using the provided caretakerId
         axios
             .get(`https://care4u.onrender.com/api/caretaker/${caretakerId}`)
             .then((response) => {
@@ -55,31 +87,25 @@ const ViewCaretakerScreen = ({ route }) => {
         setIsModalVisible(true);
     };
 
+    const closeModal = () => {
+        setIsModalVisible(false);
+    };
+
     const handleConfirmBooking = () => {
-        // Implement the booking logic and send a request to the server
         const bookingData = {
-            user: userId, // Get the user ID from your authentication
+            user: userId,
             caretaker: caretakerId,
             startDate,
             endDate,
         };
 
-        // Send a POST request to create a booking
         axios
             .post("https://care4u.onrender.com/api/booking", bookingData)
             .then((response) => {
                 setIsModalVisible(false);
-                Alert.alert(
-                    "Booking Successful",
-                    "Your booking has been confirmed!"
-                );
             })
             .catch((error) => {
                 console.error("Failed to create a booking:", error);
-                Alert.alert(
-                    "Booking Failed",
-                    "An error occurred while creating the booking."
-                );
             });
     };
 
@@ -109,7 +135,7 @@ const ViewCaretakerScreen = ({ route }) => {
                             Services Offered: {caretakerData.servicesOffered}
                         </Text>
                         <Text style={styles.caretakerRate}>
-                            Hourly Rate: ${caretakerData.hourlyRate}
+                            Rate: Rs.{caretakerData.hourlyRate}
                         </Text>
                         <Text style={styles.caretakerBio}>
                             {caretakerData.bio}
@@ -126,22 +152,65 @@ const ViewCaretakerScreen = ({ route }) => {
 
             <Modal visible={isModalVisible} transparent animationType="slide">
                 <View style={styles.modalContainer}>
-                    <TextInput
-                        style={styles.dateInput}
-                        placeholder="Start Date"
-                        value={startDate}
-                        onChangeText={(text) => setStartDate(text)}
-                    />
-                    <TextInput
-                        style={styles.dateInput}
-                        placeholder="End Date"
-                        value={endDate}
-                        onChangeText={(text) => setEndDate(text)}
-                    />
-                    <Button
-                        title="Confirm Booking"
-                        onPress={handleConfirmBooking}
-                    />
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalTitle}>
+                            Select Booking Dates
+                        </Text>
+                        <Pressable
+                            onPress={showStartDatepicker}
+                            style={styles.dateInput}
+                        >
+                            <Text>
+                                {startDate
+                                    ? startDate.toDateString()
+                                    : "Select Start Date"}
+                                {startShow && (
+                                    <DateTimePicker
+                                        testID="dateTimePickerStart"
+                                        value={startDate}
+                                        mode={startMode}
+                                        is24Hour={true}
+                                        display="spinner"
+                                        onChange={onStartDateChange}
+                                    />
+                                )}
+                            </Text>
+                        </Pressable>
+                        <Pressable
+                            onPress={showEndDatepicker}
+                            style={styles.dateInput}
+                        >
+                            <Text>
+                                {endDate
+                                    ? endDate.toDateString()
+                                    : "Select End Date"}
+                                {endShow && (
+                                    <DateTimePicker
+                                        testID="dateTimePickerEnd"
+                                        value={endDate}
+                                        mode={endMode}
+                                        is24Hour={true}
+                                        display="spinner"
+                                        onChange={onEndDateChange}
+                                    />
+                                )}
+                            </Text>
+                        </Pressable>
+                        <Pressable
+                            onPress={handleConfirmBooking}
+                            style={styles.confirmButton}
+                        >
+                            <Text style={styles.confirmButtonText}>
+                                Confirm Booking
+                            </Text>
+                        </Pressable>
+                        <Pressable
+                            onPress={closeModal}
+                            style={styles.closeButton}
+                        >
+                            <Text style={styles.closeButtonText}>Close</Text>
+                        </Pressable>
+                    </View>
                 </View>
             </Modal>
         </SafeAreaView>
@@ -192,8 +261,8 @@ const styles = StyleSheet.create({
     },
     bookButton: {
         backgroundColor: "#2E86DE",
-        padding: 10,
-        borderRadius: 5,
+        padding: 15,
+        borderRadius: 10,
         alignItems: "center",
         marginTop: 20,
     },
@@ -208,16 +277,48 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "rgba(0, 0, 0, 0.7)",
     },
-    dateInput: {
+    modalContent: {
         width: "80%",
-        height: 40,
-        borderColor: "#ddd",
-        borderWidth: 1,
+        backgroundColor: "#fff",
+        padding: 20,
+        borderRadius: 10,
+    },
+    modalTitle: {
+        fontSize: 18,
+        fontWeight: "bold",
         marginBottom: 10,
+        textAlign: "center",
+    },
+    dateInput: {
+        backgroundColor: "#eee",
         padding: 10,
         borderRadius: 5,
-        backgroundColor: "#fff",
+        marginBottom: 10,
+        textAlign: "center",
+    },
+    confirmButton: {
+        backgroundColor: "#2E86DE",
+        padding: 10,
+        borderRadius: 5,
+        alignItems: "center",
+        marginTop: 10,
+    },
+    confirmButtonText: {
+        color: "#fff",
         fontSize: 16,
+        fontWeight: "bold",
+    },
+    closeButton: {
+        backgroundColor: "#DD5044",
+        padding: 10,
+        borderRadius: 5,
+        alignItems: "center",
+        marginTop: 10,
+    },
+    closeButtonText: {
+        color: "#fff",
+        fontSize: 16,
+        fontWeight: "bold",
     },
 });
 

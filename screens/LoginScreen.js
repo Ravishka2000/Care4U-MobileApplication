@@ -5,10 +5,12 @@ import {
     StyleSheet,
     SafeAreaView,
     Pressable,
+    Image,
 } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import logo from "../assets/Care4U.png";
 
 const LoginScreen = () => {
     const [email, setEmail] = useState("");
@@ -20,7 +22,7 @@ const LoginScreen = () => {
             try {
                 const token = await AsyncStorage.getItem("authToken");
                 if (token) {
-                    navigation.replace("CareTakerMain");
+                    navigation.replace("Main");
                 }
             } catch (error) {
                 console.log("Error: " + error);
@@ -56,29 +58,35 @@ const LoginScreen = () => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <Image source={logo} style={styles.logo} />
+
             <Text style={styles.header}>Login</Text>
+            <Text style={styles.welcome}>Welcome back, Let's login.</Text>
+
+            <Text style={styles.label}>Email</Text>
             <TextInput
                 style={styles.input}
-                placeholder="Email"
+                placeholder="Enter your Email"
                 value={email}
                 onChangeText={setEmail}
             />
+
+            <Text style={styles.label}>Password</Text>
             <TextInput
                 style={styles.input}
-                placeholder="Password"
+                placeholder="Enter Your Password"
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}
             />
             <Pressable
                 style={{
-                    width: "80%",
-                    backgroundColor: "#435334",
-                    borderRadius: 6,
+                    width: "100%",
+                    backgroundColor: "#00ADB5",
+                    borderRadius: 4,
                     marginLeft: "auto",
                     marginRight: "auto",
                     paddingVertical: 10,
-                    marginTop: 20,
                 }}
                 onPress={handleLogin}
             >
@@ -105,9 +113,8 @@ const LoginScreen = () => {
                 <Text
                     style={{
                         textAlign: "center",
-                        color: "gray",
+                        color: "#262626",
                         fontSize: 14,
-                        fontWeight: "bold",
                     }}
                 >
                     Don't have an account? Sign Up
@@ -121,25 +128,42 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#f0f0f0", // Background color
+        backgroundColor: "#ffffff",
+        marginHorizontal: 40,
+    },
+    logo: {
+        marginStart: 'auto',
+        marginEnd: 'auto',
+        width: 200,
+        height: 200,
+        resizeMode: "contain",
+        marginBottom: 40,
     },
     header: {
-        fontSize: 28, // Larger font size
-        marginBottom: 20,
-        fontWeight: "bold", // Bold text
-        color: "#333", // Text color
+        fontSize: 28, 
+        marginBottom: 10,
+        fontWeight: "bold", 
+        color: "#333",
+        textAlign: "left",
+    },
+    welcome: {
+        marginBottom: 40,
     },
     input: {
-        width: "80%",
+        width: "100%",
         height: 40,
-        borderColor: "#ddd", // Input border color
-        borderWidth: 1,
-        marginBottom: 10,
+        borderColor: "#404040",
+        borderWidth: 0.8,
+        marginBottom: 30,
         padding: 10,
-        borderRadius: 5, // Rounded input corners
-        backgroundColor: "#fff", // Input background color
-        fontSize: 16, // Font size for input
+        borderRadius: 5, 
+        backgroundColor: "#ffff", 
+        fontSize: 16,
+    },
+    label: {
+        fontSize: 16,
+        marginBottom: 5,
+        textAlign: "left",
     },
 });
 
