@@ -103,6 +103,7 @@ const StackNavigator = () => {
                     component={CareTakerHomeScreen}
                     options={{
                         tabBarLabel: "Home",
+                        headerShown: false,
                         tabBarLabelStyle: { color: "#435334" },
                         tabBarIcon: ({ focused }) =>
                             focused ? (

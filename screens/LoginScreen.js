@@ -22,7 +22,7 @@ const LoginScreen = () => {
             try {
                 const token = await AsyncStorage.getItem("authToken");
                 if (token) {
-                    navigation.replace("Main");
+                    navigation.replace("CareTakerMain");
                 }
             } catch (error) {
                 console.log("Error: " + error);

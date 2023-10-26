@@ -1,3 +1,7 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Modal from "react-native-modal";
+import { MaterialIcons } from "@expo/vector-icons";
 import {
     StyleSheet,
     Text,
@@ -6,10 +10,6 @@ import {
     TouchableOpacity,
     TextInput,
 } from "react-native";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Modal from "react-native-modal";
-import { MaterialIcons } from "@expo/vector-icons";
 
 const TaskScreen = ({ route }) => {
     const { bookingId } = route.params;
@@ -19,8 +19,15 @@ const TaskScreen = ({ route }) => {
     const [isUpdateTaskModalVisible, setUpdateTaskModalVisible] =
         useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
+    const [isTaskDetailsModalVisible, setTaskDetailsModalVisible] =
+        useState(false);
+    const [selectedTaskDetails, setSelectedTaskDetails] = useState(null);
 
     useEffect(() => {
+        fetchTasks();
+    }, [bookingId]);
+
+    const fetchTasks = () => {
         axios
             .get(`https://care4u.onrender.com/api/booking/${bookingId}`)
             .then((response) => {
@@ -29,7 +36,7 @@ const TaskScreen = ({ route }) => {
             .catch((error) => {
                 console.error("Failed to fetch tasks:", error);
             });
-    }, [bookingId]);
+    };
 
     const openAddTaskModal = () => {
         setAddTaskModalVisible(true);
@@ -39,16 +46,24 @@ const TaskScreen = ({ route }) => {
         setAddTaskModalVisible(false);
     };
 
-    // Function to open the update task modal
     const openUpdateTaskModal = (task) => {
         setSelectedTask(task);
         setUpdateTaskModalVisible(true);
     };
 
-    // Function to close the update task modal
     const closeUpdateTaskModal = () => {
         setSelectedTask(null);
         setUpdateTaskModalVisible(false);
+    };
+
+    const showTaskDetails = (task) => {
+        setSelectedTaskDetails(task);
+        setTaskDetailsModalVisible(true);
+    };
+
+    const closeTaskDetailsModal = () => {
+        setSelectedTaskDetails(null);
+        setTaskDetailsModalVisible(false);
     };
 
     const addTask = () => {
@@ -61,17 +76,6 @@ const TaskScreen = ({ route }) => {
             })
             .catch((error) => {
                 console.error("Failed to add a task:", error);
-            });
-    };
-
-    const fetchTasks = () => {
-        axios
-            .get(`https://care4u.onrender.com/api/booking/${bookingId}`)
-            .then((response) => {
-                setTasks(response.data.tasks);
-            })
-            .catch((error) => {
-                console.error("Failed to fetch tasks:", error);
             });
     };
 
@@ -92,9 +96,8 @@ const TaskScreen = ({ route }) => {
     };
 
     const updateTask = () => {
-        // Construct the update task data (title and description)
         const updatedData = {
-            title: selectedTask.title, // You can update these values as needed
+            title: selectedTask.title,
             description: selectedTask.description,
         };
 
@@ -104,8 +107,8 @@ const TaskScreen = ({ route }) => {
                 updatedData
             )
             .then(() => {
-                closeUpdateTaskModal(); // Close the modal after updating
-                fetchTasks(); // Refresh the task list
+                closeUpdateTaskModal();
+                fetchTasks();
             })
             .catch((error) => {
                 console.error("Failed to update the task:", error);
@@ -118,40 +121,41 @@ const TaskScreen = ({ route }) => {
                 onPress={openAddTaskModal}
                 style={styles.addButton}
             >
-                <Text style={styles.addButtonText}>Add Task</Text>
+                <Text style={styles.addButtonText}>+ Add Task</Text>
             </TouchableOpacity>
 
             <FlatList
                 data={tasks}
                 keyExtractor={(task) => task._id}
                 renderItem={({ item }) => (
-                    <View key={item._id} style={styles.taskItem}>
-                        <Text style={styles.taskTitle}>{item.title}</Text>
-                        <Text style={styles.taskStatus}>
-                            {item.status ? "Done" : "Not Done"}
-                        </Text>
-                        <View style={styles.taskActions}>
-                            <TouchableOpacity
-                                onPress={() => openUpdateTaskModal(item)}
-                            >
-                                <MaterialIcons
-                                    name="edit"
-                                    size={20}
-                                    color="black"
-                                />
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => deleteTask(item._id)}
-                                style={{ marginLeft: 10 }}
-                            >
-                                <MaterialIcons
-                                    name="delete"
-                                    size={20}
-                                    color="red"
-                                />
-                            </TouchableOpacity>
+                    <TouchableOpacity onPress={() => showTaskDetails(item)}>
+                        <View style={styles.taskItem}>
+                            <Text style={styles.taskTitle}>{item.title}</Text>
+                            <Text style={styles.taskStatus}>
+                                {item.status ? "Done" : "Not Done"}
+                            </Text>
+                            <View style={styles.taskActions}>
+                                <TouchableOpacity
+                                    onPress={() => openUpdateTaskModal(item)}
+                                >
+                                    <MaterialIcons
+                                        name="edit"
+                                        size={20}
+                                        color="#40513B"
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => deleteTask(item._id)}
+                                >
+                                    <MaterialIcons
+                                        name="delete"
+                                        size={20}
+                                        color="#88304E"
+                                    />
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    </View>
+                    </TouchableOpacity>
                 )}
             />
 
@@ -231,6 +235,40 @@ const TaskScreen = ({ route }) => {
                     </TouchableOpacity>
                 </View>
             </Modal>
+
+            <Modal isVisible={isTaskDetailsModalVisible} style={styles.modal}>
+                <View style={styles.taskDetailsModal}>
+                    <Text style={styles.taskDetailsTitle}>Task Details</Text>
+                    {selectedTaskDetails && (
+                        <View style={styles.taskDetailsContent}>
+                            <View style={styles.taskDetailRow}>
+                                <Text style={styles.taskDetailsLabel}>
+                                    Title:
+                                </Text>
+                                <Text style={styles.taskDetailsText}>
+                                    {selectedTaskDetails.title}
+                                </Text>
+                            </View>
+                            <View style={styles.taskDetailRow}>
+                                <Text style={styles.taskDetailsLabel}>
+                                    Description:
+                                </Text>
+                                <Text style={styles.taskDetailsText}>
+                                    {selectedTaskDetails.description}
+                                </Text>
+                            </View>
+                        </View>
+                    )}
+                    <TouchableOpacity
+                        onPress={closeTaskDetailsModal}
+                        style={styles.closeTaskDetailsButton}
+                    >
+                        <Text style={styles.closeTaskDetailsButtonText}>
+                            Close
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
         </View>
     );
 };
@@ -238,12 +276,12 @@ const TaskScreen = ({ route }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "white",
+        backgroundColor: "#f8f8f8",
         padding: 20,
     },
     addButton: {
-        backgroundColor: "#2E86DE",
-        padding: 10,
+        backgroundColor: "#00ADB5",
+        padding: 15,
         borderRadius: 5,
         alignItems: "center",
         marginBottom: 20,
@@ -251,30 +289,36 @@ const styles = StyleSheet.create({
     addButtonText: {
         color: "white",
         fontSize: 16,
+        fontWeight: "bold",
     },
     taskItem: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: "#ccc",
+        padding: 15,
+        backgroundColor: "white",
+        borderRadius: 10,
+        marginBottom: 10,
+        elevation: 2,
+        shadowColor: "black",
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
     },
     taskTitle: {
         fontSize: 18,
         flex: 1,
+        color: "#333",
+    },
+    taskStatus: {
+        color: "#00ADB5",
+        fontWeight: "bold",
+        marginRight: 20,
     },
     taskActions: {
         flexDirection: "row",
         alignItems: "center",
-    },
-    updateTask: {
-        color: "green",
-        marginLeft: 10,
-    },
-    deleteTask: {
-        color: "red",
-        marginLeft: 10,
+        gap: 10,
     },
     modal: {
         margin: 0,
@@ -282,7 +326,9 @@ const styles = StyleSheet.create({
     },
     addTaskModal: {
         backgroundColor: "white",
-        padding: 20,
+        paddingHorizontal: 20,
+        paddingTop: 20,
+        paddingBottom: 40,
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
     },
@@ -290,6 +336,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "bold",
         marginBottom: 10,
+        textAlign: "center",
+        textTransform: "uppercase",
     },
     addTaskInput: {
         borderWidth: 1,
@@ -299,18 +347,19 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     addTaskButton: {
-        backgroundColor: "#2E86DE",
-        padding: 10,
+        backgroundColor: "#00ADB5",
+        padding: 15,
         borderRadius: 5,
         alignItems: "center",
     },
     addTaskButtonText: {
         color: "white",
         fontSize: 16,
+        fontWeight: "bold",
     },
     closeAddTaskButton: {
-        backgroundColor: "red",
-        padding: 10,
+        backgroundColor: "#222831",
+        padding: 15,
         borderRadius: 5,
         alignItems: "center",
         marginTop: 10,
@@ -318,11 +367,50 @@ const styles = StyleSheet.create({
     closeAddTaskButtonText: {
         color: "white",
         fontSize: 16,
+        fontWeight: "bold",
     },
-    taskStatus: {
-        marginRight: 30,
-        color: "green"
-    }
+    taskDetailsModal: {
+        backgroundColor: "white",
+        padding: 20,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+    },
+    taskDetailsTitle: {
+        fontSize: 24,
+        fontWeight: "bold",
+        marginBottom: 15,
+        textAlign: "center",
+        textTransform: "uppercase",
+    },
+    taskDetailsContent: {
+        marginBottom: 15,
+    },
+    taskDetailsLabel: {
+        fontSize: 18,
+        fontWeight: "bold",
+        marginBottom: 5,
+    },
+    taskDetailsText: {
+        fontSize: 18,
+        color: "#333",
+    },
+    closeTaskDetailsButton: {
+        backgroundColor: "#222831",
+        padding: 15,
+        borderRadius: 5,
+        alignItems: "center",
+        marginTop: 15,
+    },
+    closeTaskDetailsButtonText: {
+        color: "white",
+        fontSize: 18,
+        fontWeight: "bold",
+    },
+    taskDetailRow: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginBottom: 10,
+    },
 });
 
 export default TaskScreen;
