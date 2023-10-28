@@ -126,6 +126,7 @@ const StackNavigator = () => {
                     component={CareTakerTaskScreen}
                     options={{
                         tabBarLabel: "Tasks",
+                        headerShown: false,
                         tabBarLabelStyle: { color: "#435334" },
                         tabBarIcon: ({ focused }) =>
                             focused ? (
@@ -148,6 +149,7 @@ const StackNavigator = () => {
                     component={UserProfileScreen}
                     options={{
                         tabBarLabel: "Profile",
+                        headerShown: false,
                         tabBarLabelStyle: { color: "#435334" },
                         tabBarIcon: ({ focused }) =>
                             focused ? (

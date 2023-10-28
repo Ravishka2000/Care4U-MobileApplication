@@ -79,6 +79,14 @@ const MyBookingsScreen = () => {
                                 >
                                     <View style={styles.bookingInfo}>
                                         <Text style={styles.label}>
+                                            Booking Title:
+                                        </Text>
+                                        <Text style={styles.text}>
+                                            {booking.title}
+                                        </Text>
+                                    </View>
+                                    <View style={styles.bookingInfo}>
+                                        <Text style={styles.label}>
                                             Start Date:
                                         </Text>
                                         <Text style={styles.text}>

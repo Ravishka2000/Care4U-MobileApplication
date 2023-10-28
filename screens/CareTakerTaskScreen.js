@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from "react-native";
+import {
+    StyleSheet,
+    Text,
+    View,
+    SafeAreaView,
+    Image,
+    TouchableOpacity,
+    FlatList,
+} from "react-native";
 import axios from "axios";
+import AppLogo from "../assets/Care4U.png";
 
 const CareTakerTaskScreen = () => {
     const [bookings, setBookings] = useState([]);
@@ -17,7 +26,7 @@ const CareTakerTaskScreen = () => {
             .catch((error) => {
                 console.error("Failed to fetch bookings:", error);
             });
-    }, []);
+    }, [bookings]);
 
     const toggleTaskStatus = (bookingId, taskId) => {
         let status;
@@ -53,14 +62,19 @@ const CareTakerTaskScreen = () => {
     };
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
+            <View style={styles.header}>
+                <Image source={AppLogo} style={styles.appLogo} />
+                <Text style={styles.appName}>CARE4U</Text>
+            </View>
+            <Text style={styles.pageTitle}>Booking Tasks</Text>
             <FlatList
                 data={bookings}
                 keyExtractor={(booking) => booking._id}
                 renderItem={({ item }) => (
                     <View style={styles.bookingItem}>
                         <Text style={styles.bookingTitle}>
-                            Booking ID: {item._id}
+                            Booking: {item.title}
                         </Text>
                         <FlatList
                             data={item.tasks}
@@ -72,29 +86,27 @@ const CareTakerTaskScreen = () => {
                                         toggleTaskStatus(item._id, taskItem._id)
                                     }
                                 >
-                                    <View
-                                        style={{
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                        }}
-                                    >
+                                    <View style={styles.taskRow}>
                                         <View
-                                            style={{
-                                                width: 24,
-                                                height: 24,
-                                                borderRadius: 12,
-                                                borderWidth: 2,
-                                                borderColor: "gray",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                marginRight: 10,
-                                                backgroundColor: taskItem.status
-                                                    ? "green"
-                                                    : "white",
-                                            }}
+                                            style={[
+                                                styles.taskStatus,
+                                                {
+                                                    backgroundColor:
+                                                        taskItem.status
+                                                            ? "#4CAF50"
+                                                            : "#fff",
+                                                    borderColor: taskItem.status
+                                                        ? "#4CAF50"
+                                                        : "#ccc",
+                                                },
+                                            ]}
                                         >
                                             {taskItem.status && (
-                                                <Text style={{ color: "white" }}>
+                                                <Text
+                                                    style={
+                                                        styles.taskStatusText
+                                                    }
+                                                >
                                                     ✓
                                                 </Text>
                                             )}
@@ -108,34 +120,88 @@ const CareTakerTaskScreen = () => {
                         />
                     </View>
                 )}
+                ListHeaderComponent={() => (
+                    <View style={styles.headerSpacing} />
+                )}
+                ListFooterComponent={() => (
+                    <View style={styles.footerSpacing} />
+                )}
             />
-        </View>
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "white",
+        backgroundColor: "#fff",
         padding: 20,
     },
-    bookingItem: {
+    header: {
+        backgroundColor: "#393E46",
         padding: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: "#ccc",
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    appLogo: {
+        width: 60,
+        height: 40,
+    },
+    appName: {
+        fontSize: 30,
+        fontWeight: "800",
+        color: "white",
+        marginLeft: 85,
+    },
+    pageTitle: {
+        fontSize: 30,
+        fontWeight: "900",
+        textAlign: "center",
+        margin: 10,
+        marginTop: 20,
+        textTransform: "uppercase",
+    },
+    bookingItem: {
+        marginBottom: 20,
+        padding: 20,
     },
     bookingTitle: {
         fontSize: 18,
         fontWeight: "bold",
+        marginBottom: 10,
     },
     taskItem: {
+        flexDirection: "row",
+        alignItems: "center",
         padding: 10,
         borderBottomWidth: 1,
         borderBottomColor: "#ccc",
     },
+    taskRow: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    taskStatus: {
+        width: 24,
+        height: 24,
+        borderRadius: 12,
+        borderWidth: 2,
+        borderColor: "#ccc",
+        alignItems: "center",
+        justifyContent: "center",
+        marginRight: 10,
+    },
+    taskStatusText: {
+        color: "white",
+    },
     taskTitle: {
         fontSize: 18,
-        marginLeft: 10,
+    },
+    headerSpacing: {
+        height: 10,
+    },
+    footerSpacing: {
+        height: 10,
     },
 });
 

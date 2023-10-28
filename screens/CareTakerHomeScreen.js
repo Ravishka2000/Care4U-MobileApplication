@@ -185,6 +185,9 @@ const CareTakerHomeScreen = () => {
                                                 <Text style={styles.cardTitle}>
                                                     Booking Details
                                                 </Text>
+                                                <Text style={styles.bookingTitle}>
+                                                    {booking.title}
+                                                </Text>
                                                 <View
                                                     style={
                                                         styles.bookingDetails
@@ -298,6 +301,9 @@ const CareTakerHomeScreen = () => {
                                             >
                                                 <Text style={styles.cardTitle}>
                                                     Booking Details
+                                                </Text>
+                                                <Text style={styles.bookingTitle}>
+                                                    {booking.title}
                                                 </Text>
                                                 <View
                                                     style={
@@ -445,6 +451,10 @@ const styles = StyleSheet.create({
     cardTitle: {
         fontSize: 20,
         fontWeight: "bold",
+        marginBottom: 10,
+    },
+    bookingTitle:{
+        fontSize: 16,
         marginBottom: 10,
     },
     bookingHeading: {

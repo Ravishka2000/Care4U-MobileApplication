@@ -9,7 +9,7 @@ const LandingScreen = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             navigation.navigate("Login");
-        }, 2000);
+        }, 4000);
 
         return () => clearTimeout(timer);
     }, [navigation]);
@@ -21,7 +21,8 @@ const LandingScreen = () => {
                 start={[0.1, 0.1]}
                 style={styles.linearGradient}
             >
-                <Text style={styles.text}>CARE4U</Text>
+                <Text style={styles.appName}>CARE4U</Text>
+                <Text style={styles.slogan}>Your Trusted CareTaker App</Text>
             </LinearGradient>
         </View>
     );
@@ -48,11 +49,18 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    text: {
+    appName: {
         color: "#fff",
         fontSize: 40,
         fontWeight: "bold",
         textAlign: "center",
-        letterSpacing: 10
+        letterSpacing: 10,
+        marginBottom: 10,
+    },
+    slogan: {
+        color: "#222831",
+        fontSize: 24,
+        fontWeight: "bold",
+        textAlign: "center",
     },
 });
