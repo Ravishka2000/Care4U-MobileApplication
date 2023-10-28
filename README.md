@@ -2,8 +2,6 @@
 
 Welcome to Care4U, your trusted Caretaker Booking Application. Care4U is a mobile app that connects caretakers with those in need of care services. Whether you're looking for in-home care, babysitting, or any other care services, Care4U has got you covered.
 
-![App Screenshot](screenshots/screenshot.png)
-
 ## Features
 
 - **User Authentication**: Secure user registration and login functionality.
