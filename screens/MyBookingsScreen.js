@@ -17,7 +17,10 @@ import jwt_decode from "jwt-decode";
 import AppLogo from "../assets/Care4U.png";
 
 const MyBookingsScreen = () => {
-
+    const { userId, setUserId } = useContext(UserType);
+    const navigation = useNavigation();
+    const [bookings, setBookings] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -44,6 +47,9 @@ const MyBookingsScreen = () => {
             });
     }, []);
 
+    const handleBookingPress = (bookingId) => {
+        navigation.navigate("UserTask", { bookingId });
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -144,6 +150,85 @@ const MyBookingsScreen = () => {
     );
 };
 
+const getStatusColor = (status) => {
+    switch (status) {
+        case "Pending":
+            return "#FFA500"; // Orange
+        case "Confirmed":
+            return "#008000"; // Green
+        case "Cancelled":
+            return "#FF0000"; // Red
+        default:
+            return "#000000"; // Black
+    }
+};
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#f0f0f0",
+    },
+    header: {
+        backgroundColor: "#393E46",
+        padding: 10,
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    appLogo: {
+        width: 60,
+        height: 40,
+    },
+    appName: {
+        fontSize: 30,
+        fontWeight: "800",
+        color: "white",
+        marginLeft: 85,
+        marginRight: "auto",
+    },
+    pageTitle: {
+        fontSize: 30,
+        fontWeight: "900",
+        textAlign: "center",
+        margin: 10,
+        marginTop: 20,
+        textTransform: "uppercase",
+    },
+    loadingIndicator: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    bookingCard: {
+        backgroundColor: "#fff",
+        margin: 10,
+        padding: 15,
+        elevation: 2,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+    },
+    bookingInfo: {
+        marginBottom: 10,
+    },
+    text: {
+        fontSize: 16,
+    },
+    label: {
+        fontWeight: "bold",
+        fontSize: 16,
+        color: "#555",
+    },
+    status: {
+        padding: 5,
+        borderRadius: 5,
+        marginTop: 5,
+        width: "auto",
+    },
+    statusText: {
+        color: "white",
+        fontSize: 16,
+    },
+});
 
 export default MyBookingsScreen;
