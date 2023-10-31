@@ -93,3 +93,37 @@ const CareTakerHomeScreen = () => {
             { cancelable: false }
         );
     };
+
+    const handleRejectBooking = async (bookingId) => {
+        Alert.alert(
+            "Confirm Reject",
+            "Are you sure you want to reject this booking?",
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel",
+                },
+                {
+                    text: "Reject",
+                    onPress: async () => {
+                        try {
+                            await axios.patch(
+                                `https://care4u.onrender.com/api/booking/${bookingId}/accept`,
+                                { accepted: false }
+                            );
+                            const updatedBookings = bookings.map((booking) =>
+                                booking._id === bookingId
+                                    ? { ...booking, status: "Cancelled" }
+                                    : booking
+                            );
+                            setBookings(updatedBookings);
+                        } catch (error) {
+                            console.error("Failed to reject booking:", error);
+                        }
+                        fetchBookings();
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
+    };
