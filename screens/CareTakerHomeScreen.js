@@ -287,7 +287,7 @@ const CareTakerHomeScreen = () => {
                                                 </View>
                                             </Pressable>
                                         ))}
-                                    </React.Fragment>
+                                        </React.Fragment>
                                 )}
                                 {acceptedBookings.length > 0 && (
                                     <React.Fragment>
@@ -433,6 +433,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         lineHeight: 16,
     },
+
     loadingIndicator: {
         flex: 1,
         justifyContent: "center",
