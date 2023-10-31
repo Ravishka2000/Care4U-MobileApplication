@@ -287,3 +287,85 @@ const CareTakerHomeScreen = () => {
                                                 </View>
                                             </Pressable>
                                         ))}
+                                        </React.Fragment>
+                                )}
+                                {acceptedBookings.length > 0 && (
+                                    <React.Fragment>
+                                        <Text style={styles.bookingHeading}>
+                                            Accepted Requests
+                                        </Text>
+                                        {acceptedBookings.map((booking) => (
+                                            <Pressable
+                                                key={booking._id}
+                                                style={styles.bookingCard}
+                                            >
+                                                <Text style={styles.cardTitle}>
+                                                    Booking Details
+                                                </Text>
+                                                <Text style={styles.bookingTitle}>
+                                                    {booking.title}
+                                                </Text>
+                                                <View
+                                                    style={
+                                                        styles.bookingDetails
+                                                    }
+                                                >
+                                                    <View
+                                                        style={
+                                                            styles.detailsColumn
+                                                        }
+                                                    >
+                                                        <Text
+                                                            style={styles.label}
+                                                        >
+                                                            Start Date:
+                                                        </Text>
+                                                        <Text
+                                                            style={styles.text}
+                                                        >
+                                                            {new Date(
+                                                                booking.startDate
+                                                            ).toDateString()}
+                                                        </Text>
+                                                        <Text
+                                                            style={styles.label}
+                                                        >
+                                                            End Date:
+                                                        </Text>
+                                                        <Text
+                                                            style={styles.text}
+                                                        >
+                                                            {new Date(
+                                                                booking.endDate
+                                                            ).toDateString()}
+                                                        </Text>
+                                                    </View>
+                                                    <View
+                                                        style={
+                                                            styles.detailsColumn
+                                                        }
+                                                    >
+                                                        <Text
+                                                            style={styles.label}
+                                                        >
+                                                            Status:
+                                                        </Text>
+                                                        <Text
+                                                            style={styles.text}
+                                                        >
+                                                            {booking.status}
+                                                        </Text>
+                                                    </View>
+                                                </View>
+                                            </Pressable>
+                                        ))}
+                                    </React.Fragment>
+                                )}
+                            </React.Fragment>
+                        )}
+                    </ScrollView>
+                )}
+            </ScrollView>
+        </SafeAreaView>
+    );
+};
