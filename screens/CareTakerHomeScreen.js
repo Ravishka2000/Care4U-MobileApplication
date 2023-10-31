@@ -238,3 +238,52 @@ const CareTakerHomeScreen = () => {
                                                         >
                                                             {booking.status}
                                                         </Text>
+                                                        {booking.status ===
+                                                            "Pending" && (
+                                                            <View
+                                                                style={
+                                                                    styles.buttonContainer
+                                                                }
+                                                            >
+                                                                <Pressable
+                                                                    style={
+                                                                        styles.acceptButton
+                                                                    }
+                                                                    onPress={() =>
+                                                                        handleAcceptBooking(
+                                                                            booking._id
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <Text
+                                                                        style={
+                                                                            styles.buttonText
+                                                                        }
+                                                                    >
+                                                                        Accept
+                                                                    </Text>
+                                                                </Pressable>
+                                                                <Pressable
+                                                                    style={
+                                                                        styles.rejectButton
+                                                                    }
+                                                                    onPress={() =>
+                                                                        handleRejectBooking(
+                                                                            booking._id
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <Text
+                                                                        style={
+                                                                            styles.buttonText
+                                                                        }
+                                                                    >
+                                                                        Reject
+                                                                    </Text>
+                                                                </Pressable>
+                                                            </View>
+                                                        )}
+                                                    </View>
+                                                </View>
+                                            </Pressable>
+                                        ))}
