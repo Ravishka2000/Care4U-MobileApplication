@@ -369,3 +369,67 @@ const CareTakerHomeScreen = () => {
         </SafeAreaView>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#f0f0f0",
+    },
+    header: {
+        backgroundColor: "#393E46",
+        padding: 10,
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    appLogo: {
+        width: 60,
+        height: 40,
+    },
+    appName: {
+        fontSize: 30,
+        fontWeight: "800",
+        color: "white",
+        marginLeft: 85,
+    },
+    pageTitle: {
+        fontSize: 30,
+        fontWeight: "900",
+        textAlign: "center",
+        margin: 10,
+        marginTop: 20,
+        textTransform: "uppercase",
+    },
+    statsCard: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        backgroundColor: "#2E86DE",
+        padding: 10,
+        margin: 10,
+        borderRadius: 10,
+        elevation: 2,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+    },
+    statItem: {
+        alignItems: "center",
+    },
+    statValue: {
+        color: "white",
+        fontSize: 24,
+        fontWeight: "bold",
+    },
+    statLabel: {
+        color: "white",
+        fontSize: 16,
+        fontWeight: "bold",
+        marginTop: 4,
+        opacity: 0.8,
+        textAlign: "center",
+        textTransform: "uppercase",
+        letterSpacing: 1,
+        maxWidth: 100,
+        alignSelf: "center",
+        lineHeight: 16,
+    },
