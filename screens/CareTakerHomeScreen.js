@@ -433,3 +433,75 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         lineHeight: 16,
     },
+
+    loadingIndicator: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    bookingCard: {
+        backgroundColor: "#fff",
+        margin: 10,
+        padding: 15,
+        elevation: 2,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+    },
+    cardTitle: {
+        fontSize: 20,
+        fontWeight: "bold",
+        marginBottom: 10,
+    },
+    bookingTitle:{
+        fontSize: 16,
+        marginBottom: 10,
+    },
+    bookingHeading: {
+        fontSize: 24,
+        fontWeight: "bold",
+        textAlign: "center",
+        margin: 10,
+    },
+    text: {
+        fontSize: 16,
+        marginBottom: 8,
+    },
+    label: {
+        fontWeight: "bold",
+    },
+    buttonContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    acceptButton: {
+        backgroundColor: "#2E86DE",
+        padding: 10,
+        borderRadius: 5,
+        margin: 5,
+    },
+    rejectButton: {
+        backgroundColor: "red",
+        padding: 10,
+        borderRadius: 5,
+        margin: 5,
+    },
+    buttonText: {
+        color: "white",
+    },
+    bookingDetails: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    detailsColumn: {
+        flex: 1,
+    },
+    noRequestsMessage: {
+        fontSize: 16,
+        textAlign: "center",
+        margin: 20,
+    },
+});
+
+export default CareTakerHomeScreen;
