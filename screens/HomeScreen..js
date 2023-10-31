@@ -125,3 +125,131 @@ const HomeScreen = () => {
         </SafeAreaView>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#EEEEEE",
+    },
+    header: {
+        backgroundColor: "#393E46",
+        padding: 10,
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    appLogo: {
+        width: 60,
+        height: 40,
+    },
+    appName: {
+        fontSize: 30,
+        fontWeight: "800",
+        color: "white",
+        marginLeft: 85,
+        marginRight: "auto",
+    },
+    pageTitle: {
+        fontSize: 30,
+        fontWeight: "900",
+        textAlign: "center",
+        margin: 10,
+        marginTop: 20,
+        textTransform: "uppercase",
+    },
+    caretakerCard: {
+        flexDirection: "row",
+        backgroundColor: "#fff",
+        margin: 10,
+        borderRadius: 10,
+        padding: 10,
+        elevation: 2,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+    },
+    caretakerImageContainer: {
+        flex: 1,
+        justifyContent: "center",
+        marginRight: 10,
+    },
+    caretakerImage: {
+        width: 100,
+        height: 100,
+        borderRadius: 5,
+    },
+    caretakerDetails: {
+        flex: 3,
+        marginLeft: 10,
+        justifyContent: "center",
+    },
+    caretakerName: {
+        fontSize: 20,
+        fontWeight: "bold",
+    },
+    caretakerSpeciality: {
+        fontSize: 16,
+        color: "#555",
+        marginTop: 10,
+    },
+    caretakerInfo: {
+        flexDirection: "row",
+        marginTop: 10,
+    },
+    caretakerRate: {
+        fontSize: 16,
+        color: "#555",
+        marginRight: 20,
+    },
+    loadingIndicator: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    filterContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        margin: 10,
+        backgroundColor: "white",
+        borderRadius: 10,
+        padding: 20,
+        elevation: 2,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+    },
+    filterLabel: {
+        marginRight: 10,
+    },
+    filterInput: {
+        flex: 1,
+    },
+    dropdown: {
+        width: 120,
+        borderWidth: 1,
+        borderColor: "#555",
+        borderRadius: 5,
+        padding: 10,
+    },
+    dropdownMenu: {
+        width: 130,
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: "#555",
+    },
+    dropdownText: {
+        fontSize: 12,
+        color: "#555",
+    },
+    applyFilterButton: {
+        backgroundColor: "#00ADB5",
+        padding: 10,
+        borderRadius: 5,
+        marginLeft: 10,
+    },
+    applyFilterButtonText: {
+        color: "white",
+        fontSize: 16,
+    },
+});
