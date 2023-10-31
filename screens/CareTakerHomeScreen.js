@@ -55,3 +55,41 @@ const CareTakerHomeScreen = () => {
             setIsLoading(false);
         }
     };
+
+    useEffect(() => {
+        fetchBookings();
+    }, []);
+
+    const handleAcceptBooking = async (bookingId) => {
+        Alert.alert(
+            "Confirm",
+            "Are you sure you want to Confirm this booking?",
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel",
+                },
+                {
+                    text: "Confirm",
+                    onPress: async () => {
+                        try {
+                            await axios.patch(
+                                `https://care4u.onrender.com/api/booking/${bookingId}/accept`,
+                                { accepted: true }
+                            );
+                            const updatedBookings = bookings.map((booking) =>
+                                booking._id === bookingId
+                                    ? { ...booking, status: "Confirmed" }
+                                    : booking
+                            );
+                            setBookings(updatedBookings);
+                            fetchBookings();
+                        } catch (error) {
+                            console.error("Failed to accept booking:", error);
+                        }
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
+    };
