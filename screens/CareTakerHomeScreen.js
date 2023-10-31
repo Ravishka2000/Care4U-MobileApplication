@@ -127,3 +127,7 @@ const CareTakerHomeScreen = () => {
             { cancelable: false }
         );
     };
+
+    const totalBookings = bookings.length;
+    const pendingBookingsCount = pendingBookings.length;
+    const acceptedBookingsCount = acceptedBookings.length;
