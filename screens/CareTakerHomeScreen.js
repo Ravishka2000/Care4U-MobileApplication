@@ -131,3 +131,110 @@ const CareTakerHomeScreen = () => {
     const totalBookings = bookings.length;
     const pendingBookingsCount = pendingBookings.length;
     const acceptedBookingsCount = acceptedBookings.length;
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <View style={styles.header}>
+                <Image source={AppLogo} style={styles.appLogo} />
+                <Text style={styles.appName}>CARE4U</Text>
+            </View>
+
+            <Text style={styles.pageTitle}>DASHBOARD</Text>
+            <View style={styles.statsCard}>
+                <View style={styles.statItem}>
+                    <Text style={styles.statValue}>{totalBookings}</Text>
+                    <Text style={styles.statLabel}>Total Requests</Text>
+                </View>
+                <View style={styles.statItem}>
+                    <Text style={styles.statValue}>{pendingBookingsCount}</Text>
+                    <Text style={styles.statLabel}>Pending Requests</Text>
+                </View>
+                <View style={styles.statItem}>
+                    <Text style={styles.statValue}>
+                        {acceptedBookingsCount}
+                    </Text>
+                    <Text style={styles.statLabel}>Accepted Requests</Text>
+                </View>
+            </View>
+            <ScrollView>
+                {isLoading ? (
+                    <ActivityIndicator
+                        size="large"
+                        color="#2E86DE"
+                        style={styles.loadingIndicator}
+                    />
+                ) : (
+                    <ScrollView>
+                        {pendingBookings.length === 0 &&
+                        acceptedBookings.length === 0 ? (
+                            <Text style={styles.noRequestsMessage}>
+                                No pending or accepted requests.
+                            </Text>
+                        ) : (
+                            <React.Fragment>
+                                {pendingBookings.length > 0 && (
+                                    <React.Fragment>
+                                        <Text style={styles.bookingHeading}>
+                                            Pending Requests
+                                        </Text>
+                                        {pendingBookings.map((booking) => (
+                                            <Pressable
+                                                key={booking._id}
+                                                style={styles.bookingCard}
+                                            >
+                                                <Text style={styles.cardTitle}>
+                                                    Booking Details
+                                                </Text>
+                                                <Text style={styles.bookingTitle}>
+                                                    {booking.title}
+                                                </Text>
+                                                <View
+                                                    style={
+                                                        styles.bookingDetails
+                                                    }
+                                                >
+                                                    <View
+                                                        style={
+                                                            styles.detailsColumn
+                                                        }
+                                                    >
+                                                        <Text
+                                                            style={styles.label}
+                                                        >
+                                                            Start Date:
+                                                        </Text>
+                                                        <Text
+                                                            style={styles.text}
+                                                        >
+                                                            {new Date(
+                                                                booking.startDate
+                                                            ).toDateString()}
+                                                        </Text>
+                                                        <Text
+                                                            style={styles.label}
+                                                        >
+                                                            End Date:
+                                                        </Text>
+                                                        <Text
+                                                            style={styles.text}
+                                                        >
+                                                            {new Date(
+                                                                booking.endDate
+                                                            ).toDateString()}
+                                                        </Text>
+                                                    </View>
+                                                    <View
+                                                        style={
+                                                            styles.detailsColumn
+                                                        }
+                                                    >
+                                                        <Text
+                                                            style={styles.label}
+                                                        >
+                                                            Status:
+                                                        </Text>
+                                                        <Text
+                                                            style={styles.text}
+                                                        >
+                                                            {booking.status}
+                                                        </Text>
